@@ -63,6 +63,7 @@ jobs:
           - "cfc"
           - "cfc_dev"
           - "cheaha"
+          - "cnag"
           - "computerome"
           - "create"
           - "crg"
