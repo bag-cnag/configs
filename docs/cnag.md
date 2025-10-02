@@ -13,9 +13,9 @@ We suggest launching Nextflow from your project directory using an `sbatch` job 
 
 ```bash
 #!/bin/bash
-#SBATCH --partition general
+#SBATCH --partition=general
 #SBATCH --mem 2GB
-#SBATCH -t 24:00:00
+#SBATCH -t 2:00:00
 #SBATCH -c 1
 ```
 
