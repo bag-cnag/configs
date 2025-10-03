@@ -9,13 +9,12 @@ To use, run the pipeline with `-profile cnag`. This will download and launch the
 $ nextflow run nf-core/<PIPELINE> -profile cnag [...]
 ```
 
-We suggest launching Nextflow from your project directory using an `sbatch` job with 1 CPU and 2–5 GB memory. You may also specify the job duration depending on your workflow requirements.
+We suggest launching Nextflow from your project directory using an `sbatch` job with 1 CPU. For really long runs set `--qos=eternal`.
 
 ```bash
 #!/bin/bash
-#SBATCH --partition=general
-#SBATCH --mem 2GB
-#SBATCH -t 2:00:00
+#SBATCH --partition=genD
+#SBATCH --qos=eternal
 #SBATCH -c 1
 ```
 
