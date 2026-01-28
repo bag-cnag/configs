@@ -1,6 +1,5 @@
 # nf-core/configs: Centro Nacional de Análisis Genómico (CNAG)
 
-All nf-core pipelines have been successfully configured for use on the HPC cluster at [Centro Nacional de Análisis Genómico (CNAG)](https://www.cnag.eu/).
 
 To use, run the pipeline with `-profile cnag`. This will download and launch the [`cnag.config`](../conf/cnag.config) which has been pre-configured with a setup suitable for the CNAG cluster. Using this profile, a docker image containing all of the required software will be downloaded, and converted to a Singularity image before execution of the pipeline.
 
@@ -9,30 +8,38 @@ To use, run the pipeline with `-profile cnag`. This will download and launch the
 $ nextflow run nf-core/<PIPELINE> -profile cnag [...]
 ```
 
-We suggest launching Nextflow from your project directory using an `sbatch` job with 1 CPU. For really long runs set `--qos=eternal`.
+# Running Nextflow workflow
 
-```bash
+We suggest launching Nextflow from your project directory using an `sbatch` job with minimal resources. The script below provides and execution example that can be run with `sbatch example_script.sh`
+
+```
 #!/bin/bash
+#SBATCH -J job_name
 #SBATCH --partition=genD
 #SBATCH --qos=eternal
+#SBATCH --mem 2G
 #SBATCH -c 1
-```
 
-
-Within the same job script, load Nextflow via the CNAG environment module system:
-
-```bash
 ## Load Nextflow environment module
 module purge
 module load Nextflow/${VERSION}
+
+export NXF_ANSI_LOG=false
+
+nextflow run \
+nf-core/<PIPELINE> \
+-profile cnag \
+-w /work
+
 ```
 
-For more information about running nextflow on HPC clusters check these highly informative blog posts
-- [5 Nextflow Tips for HPC Users](https://seqera.io/blog/5_tips_for_hpc_users/)
-- [Five more tips for Nextflow user on HPC](https://seqera.io/blog/5-more-tips-for-nextflow-user-on-hpc/)
+# Managing RAM allocation
 
+Nextflow runtime runs on top of Java virtual machine which, by design, tries to allocate as much memory as is available. In big pipelines, this can be a problem. To avoid excessive RAM allocation, specify the maximum amount of memory that can be used by the Java VM using the -Xms and -Xmx Java flags like the above example.
 
-After a sucessful run, please, consider deleting the working directory to avoid file duplication.
+```
+export NXF_OPTS="-Xms500M -Xmx2G"
+```
 
 
 
