@@ -119,7 +119,7 @@ nextflow run nf-core/<PIPELINE> \
 ```
 
 
-### Multiple Custom Configs
+## Multiple Custom Configs
 
 Chain multiple configuration files:
 
