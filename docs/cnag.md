@@ -1,7 +1,7 @@
 # nf-core/configs: Centro Nacional de Análisis Genómico (CNAG)
 
 
-To use, run the pipeline with `-profile cnag`. This will download and launch the [`cnag.config`](../conf/cnag.config) which has been pre-configured with a setup suitable for the CNAG cluster. Using this profile, a docker image containing all of the required software will be downloaded, and converted to a Singularity image before execution of the pipeline.
+To use, run the pipeline with `-profile cnag`. This will download and launch the [`cnag.config`](../conf/cnag.config) which has been pre-configured with a setup suitable for the CNAG cluster.
 
 ```bash
 # Launch a nf-core pipeline with the cnag profile
@@ -80,7 +80,6 @@ else
     echo "Work directory preserved for debugging: ${WORK_DIR}"
 fi
 
-echo "Logs available at: logs/nextflow-${SLURM_JOB_ID}.out"
 exit ${EXIT_CODE}
 
 ```
@@ -129,18 +128,4 @@ nextflow run nf-core/<PIPELINE> \
   -c custom_genome.config,disable_scratch.config \
   [...]
 ```
-
-
-
-### IGENOMES
-
-A local copy of the iGenomes resource has been made available on CNAG so you should be able to run the pipeline against any reference available in the `igenomes.config` specific to the nf-core pipeline.
-You can do this by simply using the `--genome <GENOME_ID>` parameter.
-
-
-> Note: You will need an account to use the HPC cluster on CNAG in order to run the pipeline. If in doubt contact IT.
-
-
-
-> Note: Nextflow will need to submit the jobs via the SLURM job scheduler to the HPC cluster and as such the commands above will have to be executed on one of the login nodes. If in doubt contact IT.
 
